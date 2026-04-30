@@ -1,598 +1,338 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Portfólio — Princesa e o Sapo (com link)</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio Nicolly</title>
+  
   <style>
-    :root{
-      --bg:#ffffff; /* fundo verde claro */
-      --card:#f7f3e9;
-      --accent:#2f8a5a;
-      --accent-2:#f2c94c;
-      --muted:#4b5b4f;
-      --shadow: 0 8px 26px rgba(3,10,8,0.12);
-      --radius:14px;
-      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    }
-    html,body{height:100%}
-    body{
-      margin:0;
-      background:
-        radial-gradient(800px 300px at 10% 10%, rgba(47,138,90,0.06), transparent 10%),
-        linear-gradient(180deg, var(--bg) 0%, #d6f0db 100%);
-      color: #0b3b2e;
-      padding:28px;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+    /* --- INÍCIO DO CSS --- */
+    
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
     }
 
-    .wrap{
-      max-width:1100px;
-      margin:0 auto;
-      display:grid;
-      grid-template-columns:320px 1fr;
-      gap:28px;
-      align-items:start;
+    header {
+      background-color: #333;
+      color: white;
+      padding: 20px 0;
     }
 
-    .sidebar{
-      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5));
-      border-radius:var(--radius);
-      padding:20px;
-      box-shadow:var(--shadow);
-      position:relative;
-      overflow:hidden;
-    }
-    .brand{display:flex;gap:12px;align-items:center;margin-bottom:12px}
-    .logo{width:56px;height:56px;border-radius:12px;background: radial-gradient(circle at 30% 30%, #fff8d6, #f2c94c 30%, #f2a900 60%);display:flex;align-items:center;justify-content:center;color:#0b3b2e;font-weight:700;flex-shrink:0}
-    .brand h1{font-size:18px;margin:0;color:var(--card);line-height:1}
-    .brand p{margin:0;font-size:12px;color:var(--muted)}
-
-    .cats{margin-top:18px;display:flex;flex-direction:column;gap:8px}
-    .cat-btn{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:10px;background:transparent;color:#0b3b2e;border:1px solid rgba(11,59,46,0.06);cursor:pointer;transition:all .18s ease;font-size:14px}
-    .cat-btn:hover{transform:translateY(-3px)}
-    .cat-btn.active{background:linear-gradient(90deg, rgba(47,138,90,0.12), rgba(242,201,76,0.06));border-color: rgba(11,59,46,0.12);box-shadow: 0 8px 20px rgba(0,0,0,0.06)}
-    .cat-icon{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.6);display:flex;align-items:center;justify-content:center;color:var(--accent);font-weight:700}
-
-    .main{min-height:60vh}
-    .hero{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:18px}
-    .hero-left h2{margin:0;font-size:22px;color:#0b3b2e}
-    .hero-left p{margin:6px 0 0;color:var(--muted)}
-    .hero-right{display:flex;gap:10px;align-items:center}
-
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.88));
-      border-radius:12px;
-      padding:14px;
-      box-shadow:var(--shadow);
-      color:#0b3b2e;
-    }
-    form .row{display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap}
-    form input[type="text"], form select, form textarea{
-      flex:1;padding:10px;border-radius:8px;border:1px solid rgba(11,59,46,0.06);font-size:14px;background:#fff;color:#0b3b2e;
-    }
-    form textarea{min-height:70px;resize:vertical}
-    .btn{background:linear-gradient(90deg,var(--accent), #4fbf6a);color:#fff;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:700}
-    .btn.ghost{background:transparent;color:#0b3b2e;border:1px solid rgba(11,59,46,0.06)}
-
-    .lists{display:grid;grid-template-columns: repeat(2, 1fr);gap:16px;margin-top:18px}
-    .list{background:transparent;border-radius:12px;padding:12px;min-height:120px;border:1px dashed rgba(11,59,46,0.06)}
-    .list h3{margin:0 0 8px 0;font-size:16px;color:#0b3b2e}
-    .item{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:8px;border-radius:8px;background:rgba(255,255,255,0.6);margin-bottom:8px;color:#0b3b2e}
-    .item .meta{font-size:13px;color:var(--muted);max-width:420px}
-    .item .actions{display:flex;gap:6px}
-    .action-btn{background:transparent;border:1px solid rgba(11,59,46,0.06);padding:6px;border-radius:8px;color:#0b3b2e;cursor:pointer;font-size:13px}
-
-    .thumb{width:120px;height:120px;border-radius:8px;object-fit:cover;margin-left:12px;border:2px solid rgba(11,59,46,0.06)}
-    .item-left{display:flex;gap:12px;align-items:flex-start}
-
-    .link-pill{
-      display:inline-block;padding:6px 8px;border-radius:8px;background:rgba(47,138,90,0.08);color:var(--accent);font-weight:600;font-size:13px;margin-top:6px;text-decoration:none;
+    /* Estilos básicos para os cards */
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      width: 250px; /* Aumentei um pouco a largura */
+      text-align: center;
+      cursor: pointer;
+      background-color: white;
+      transition: box-shadow 0.3s ease, transform 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box; /* Importante para o padding não quebrar o layout */
     }
 
-    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
-
-    .lilypad{position:absolute;right:-40px;bottom:-40px;width:220px;height:220px;background: radial-gradient(circle at 40% 30%, #7bd389, #2f8a5a 60%);border-radius:50% 50% 40% 60% / 60% 50% 50% 40%;transform:rotate(-18deg);opacity:0.12;filter:blur(6px)}
-
-    /* Quadrado de upload */
-    .image-square{
-      width:140px;
-      height:140px;
-      min-width:140px;
-      min-height:140px;
-      border-radius:10px;
-      border:2px dashed rgba(11,59,46,0.06);
-      background:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#666;
-      cursor:pointer;
-      position:relative;
-      overflow:hidden;
-      transition:box-shadow .15s, transform .12s;
+    .card:hover {
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      transform: translateY(-5px);
     }
-    .image-square.dragover{box-shadow:0 8px 20px rgba(0,0,0,0.08);transform:translateY(-4px)}
-    .image-square img{width:100%;height:100%;object-fit:cover;display:block}
-    .image-square .placeholder{padding:8px;text-align:center;font-size:13px;color:#333}
-    .image-controls{display:flex;flex-direction:column;gap:6px;margin-left:8px}
-    .small-btn{background:transparent;border:1px solid rgba(11,59,46,0.06);padding:6px;border-radius:8px;cursor:pointer;font-size:13px}
 
-    /* Modal */
-    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.4);z-index:60;padding:20px}
-    .modal.open{display:flex}
-    .modal .box{background:#fff;border-radius:12px;padding:12px;max-width:900px;max-height:90vh;overflow:auto}
-    .modal img{max-width:100%;height:auto;border-radius:8px;display:block}
-
-    @media (max-width:980px){
-      .wrap{grid-template-columns:1fr;padding:18px}
-      .lists{grid-template-columns:1fr}
-      .sidebar{order:2}
-      .main{order:1}
-      .thumb{width:80px;height:80px}
-      .image-square{width:110px;height:110px;min-width:110px;min-height:110px}
+    .card h2 {
+      font-size: 1.2em;
+      margin-top: 0;
     }
+
+    /* Esconde todas as categorias por padrão */
+    .categoria-conteudo {
+      display: none;
+    }
+
+    /* Mostra apenas a categoria que tem a classe 'ativo' */
+    .categoria-conteudo.ativo {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* Estilo dos botões do menu */
+    .menu-categorias {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
+      flex-wrap: wrap; /* Para telas menores */
+    }
+
+    .menu-categorias button {
+      padding: 10px 20px;
+      cursor: pointer;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    .menu-categorias button:hover {
+      background-color: #555;
+    }
+
+    /* Botão Abrir do Expo */
+    .btn-abrir {
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-size: 1em;
+      transition: background-color 0.3s;
+    }
+
+    .btn-abrir:hover {
+      background-color: #0056b3;
+    }
+
+    /* Estilos do Modal (Imagem ampliada) */
+    .modal {
+      display: none; /* Escondido por padrão */
+      position: fixed; 
+      z-index: 1000; 
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      background-color: rgba(0,0,0,0.8); /* Fundo escuro transparente */
+      overflow: auto; /* Permite rolar se a imagem for muito grande */
+      padding-top: 60px;
+    }
+
+    .modal-conteudo {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 10px;
+      animation: zoom 0.6s; /* Efeito de zoom ao abrir */
+    }
+
+    @keyframes zoom {
+      from {transform:scale(0)} 
+      to {transform:scale(1)}
+    }
+
+    .fechar {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .fechar:hover,
+    .fechar:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Responsividade para o modal */
+    @media only screen and (max-width: 700px){
+      .modal-conteudo {
+        width: 100%;
+      }
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #eee;
+    }
+    /* --- FIM DO CSS --- */
   </style>
 </head>
 <body>
-  <div class="wrap" role="main">
-    <aside class="sidebar" aria-label="Navegação e categorias">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">PS</div>
-        <div>
-          <h1>Portfólio — Princesa & Sapo</h1>
-          <p>Organize suas atividades por categoria</p>
-        </div>
-      </div>
 
-      <nav class="cats" aria-label="Categorias">
-        <button class="cat-btn active" data-cat="Todas"><span class="cat-icon">✨</span> Todas</button>
-        <button class="cat-btn" data-cat="Mobile"><span class="cat-icon">📱</span> Mobile</button>
-        <button class="cat-btn" data-cat="Análise"><span class="cat-icon">📊</span> Análise</button>
-        <button class="cat-btn" data-cat="JavaScript"><span class="cat-icon">🟨</span> JavaScript</button>
-        <button class="cat-btn" data-cat="Back-end"><span class="cat-icon">🖥️</span> Back-end</button>
-      </nav>
+  <header>
+    <h1>Meus Projetos</h1>
+    <h2>1° trimestre</h2>
+    <p>Explore os sites que criei em sala de aula!</p>
+  </header>
 
-      <div style="margin-top:18px;font-size:13px;color:var(--muted)">
-        <strong>Dica:</strong> imagens são salvas em base64 no navegador; evite arquivos muito grandes.
-      </div>
-
-      <div class="lilypad" aria-hidden="true"></div>
-    </aside>
-
-    <section class="main">
-      <div class="hero">
-        <div class="hero-left">
-          <h2>Meu Portfólio — Tema Princesa e o Sapo</h2>
-          <p>Guarde projetos, notas, imagens e links por categoria. <span style="font-size:20px">🐸</span></p>
-        </div>
-        <div class="hero-right">
-          <button id="exportBtn" class="btn ghost" title="Exportar JSON">Exportar</button>
-          <button id="importBtn" class="btn" title="Importar JSON">Importar</button>
-          <input id="fileInput" type="file" accept="application/json" style="display:none" />
-        </div>
-      </div>
-
-      <div class="card" aria-labelledby="formTitle">
-        <h3 id="formTitle">Adicionar / Editar atividade</h3>
-        <form id="activityForm">
-          <div class="row" style="align-items:center">
-            <div class="image-square" id="imageSquare" title="Clique ou arraste uma imagem">
-              <div class="placeholder" id="imagePlaceholder">Clique ou arraste imagem</div>
-              <img id="imagePreview" src="" alt="" style="display:none" />
-            </div>
-
-            <div style="flex:1;display:flex;flex-direction:column">
-              <div style="display:flex;gap:10px">
-                <input id="title" type="text" placeholder="Título da atividade" required />
-                <select id="category" required>
-                  <option value="Mobile">Mobile</option>
-                  <option value="Análise">Análise</option>
-                  <option value="JavaScript">JavaScript</option>
-                  <option value="Back-end">Back-end</option>
-                </select>
-              </div>
-              <div style="display:flex;gap:10px;margin-top:8px;align-items:center">
-                <input id="date" type="text" placeholder="Data ou versão (opcional)" style="flex:1" />
-                <div class="image-controls" style="margin-left:auto">
-                  <button type="button" id="chooseImageBtn" class="small-btn">Selecionar</button>
-                  <button type="button" id="removeImageBtn" class="small-btn">Remover</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <textarea id="desc" placeholder="Descrição curta"></textarea>
-          </div>
-
-          <div class="row">
-            <input id="link" type="text" placeholder="Link (https://...)" />
-            <div style="flex:1;color:var(--muted);font-size:13px;padding-top:8px">Cole um link para o projeto, demo ou repositório</div>
-          </div>
-
-          <input id="imageInput" type="file" accept="image/*" style="display:none" />
-          <div style="display:flex;gap:8px;justify-content:flex-end">
-            <button type="button" id="clearBtn" class="btn ghost">Limpar</button>
-            <button type="submit" class="btn">Salvar</button>
-          </div>
-          <input type="hidden" id="editingId" value="" />
-        </form>
-      </div>
-
-      <div class="lists" id="listsContainer" aria-live="polite">
-        <div class="list" data-list="Mobile">
-          <h3>Mobile</h3>
-          <div class="items" id="list-Mobile"></div>
-        </div>
-        <div class="list" data-list="Análise">
-          <h3>Análise</h3>
-          <div class="items" id="list-Análise"></div>
-        </div>
-        <div class="list" data-list="JavaScript">
-          <h3>JavaScript</h3>
-          <div class="items" id="list-JavaScript"></div>
-        </div>
-        <div class="list" data-list="Back-end">
-          <h3>Back-end</h3>
-          <div class="items" id="list-Back-end"></div>
-        </div>
-      </div>
-
-      <footer>
-        <small>Feito com tema inspirado em A Princesa e o Sapo — mantenha seus projetos organizados. 🐸</small>
-      </footer>
-    </section>
-  </div>
-
-  <div id="imgModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="box">
-      <button id="closeModal" class="action-btn" style="float:right;margin-bottom:8px">Fechar</button>
-      <img id="modalImg" src="" alt="Visualização da imagem" />
+  <main>
+    <div class="menu-categorias">
+      <button onclick="mostrarCategoria('javascript')">JavaScript</button>
+      <button onclick="mostrarCategoria('html')">HTML</button>
+      <button onclick="mostrarCategoria('gamma')">Gamma</button>
+      <button onclick="mostrarCategoria('expo')">Expo</button>
     </div>
+
+    <section id="projetos">
+      
+      <div id="javascript" class="categoria-conteudo ativo">
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/TodosOsSites/blob/main/filtrar.js')">
+          <h2>Projeto 1</h2><p>Filtrar.js</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/TodosOsSites/blob/main/Media_Se.js')">
+          <h2>Projeto 2</h2><p>media.js</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/TodosOsSites/blob/main/Brake_continue.js')">
+          <h2>Projeto 3</h2><p>Brake_continue.js</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/TodosOsSites/blob/main/areatriangulo.js')">
+          <h2>Projeto 4</h2><p>areatriangulo.js</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/iniciobackendd/blob/main/array.js')">
+          <h2>Projeto 5</h2><p>array.js</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/TodosOsSites/blob/main/operacoesbasicas.js')">
+          <h2>Projeto 6</h2><p>operações basicas.js</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/iniciobackendd/blob/main/carro.js')">
+          <h2>Projeto 7</h2><p>carro.js</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/iniciobackendd/blob/main/selectionSort.js')">
+          <h2>Projeto 8</h2><p>selectionSort.js</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/TodosOsSites/blob/main/hello%20world.js')">
+          <h2>Projeto 9</h2><p>helloworld.js</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/TodosOsSites/blob/main/notas.js')">
+          <h2>Projeto 10</h2><p>notas.js</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/TodosOsSites/blob/main/objeto.js')">
+          <h2>Projeto 11</h2><p>objeto.js</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/TodosOsSites/blob/main/triangulo%20(2).js')">
+          <h2>Projeto 12</h2><p>triangulo(2).js</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/TodosOsSites/blob/main/usandobreak.js')">
+          <h2>Projeto 13</h2><p>usandobreak.js</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/TodosOsSites/blob/main/usandofor.js')">
+          <h2>Projeto 14</h2><p>usandofor.js</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('')">
+          <h2>Projeto 15</h2><p>variaveis.js</p>
+        </div>
+      </div>
+
+      <div id="html" class="categoria-conteudo">
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/iniciobackendd/blob/main/copaindex.html')">
+          <h2>Projeto 16</h2><p>copa index.html</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://github.com/nicolly1265/TodosOsSites/blob/main/hello%20world.html')">
+          <h2>Projeto 17</h2><p>helloworld.html</p>
+        </div>
+      </div>
+
+      <div id="gamma" class="categoria-conteudo">
+        <div class="card" onclick="abrirProjeto('https://gamma.app/docs/As-Maiores-Startups-do-Mundo-em-2026-5c4m4l3m55caytl')">
+          <h2>Projeto 18</h2><p>As maiores startups</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://gamma.app/docs/Metricas-e-Melhorias-nos-Negocios-ccf5uc8x7uhk803')">
+          <h2>Projeto 19</h2><p>Melhorias nos negócios</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://gamma.app/docs/Agenda-Escolar-Digital-cmee274ior4vsd9')">
+          <h2>Projeto 20</h2><p>Agenda escolar digital</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://gamma.app/docs/Propriedade-Intelectual-snedlq86b3urh5x')">
+          <h2>Projeto 21</h2><p>Propriedade intelectual</p>
+        </div>
+        <div class="card" onclick="abrirProjeto('https://gamma.app/docs/Untitled-8jxsylhvzbprp9d')">
+          <h2>Projeto 22</h2><p>Plano de negócios</p>
+        </div>
+      </div>
+
+      <div id="expo" class="categoria-conteudo">
+        
+        <div class="card">
+          <h2>App Simples</h2> <p>Clique em abrir para escanear o QR Code.</p>
+          <button class="btn-abrir" onclick="ampliarImagem('qrcodesimples.png')">Abrir QR Code</button>
+        </div>
+
+        <div class="card">
+          <h2> App Imagens Trocadas</h2> <p>Clique em abrir para escanear o QR Code.</p>
+          <button class="btn-abrir" onclick="ampliarImagem('qrcodeclique.png')">Abrir QR Code</button>
+        </div>
+        
+        </div>
+
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Nicolly - Todos os direitos reservados</p>
+  </footer>
+
+  <div id="modalImagem" class="modal">
+    <span class="fechar" onclick="fecharModal()">&times;</span>
+    <img class="modal-conteudo" id="imgAmpliada">
   </div>
-
+  
   <script>
-    const STORAGE_KEY = 'portfolio_princesa_sapo_v4_link';
-    let activities = [];
-
-    // Elementos
-    const form = document.getElementById('activityForm');
-    const titleInput = document.getElementById('title');
-    const categoryInput = document.getElementById('category');
-    const dateInput = document.getElementById('date');
-    const descInput = document.getElementById('desc');
-    const linkInput = document.getElementById('link');
-    const editingIdInput = document.getElementById('editingId');
-    const clearBtn = document.getElementById('clearBtn');
-
-    const lists = {
-      'Mobile': document.getElementById('list-Mobile'),
-      'Análise': document.getElementById('list-Análise'),
-      'JavaScript': document.getElementById('list-JavaScript'),
-      'Back-end': document.getElementById('list-Back-end')
-    };
-    const catButtons = document.querySelectorAll('.cat-btn');
-    const exportBtn = document.getElementById('exportBtn');
-    const importBtn = document.getElementById('importBtn');
-    const fileInput = document.getElementById('fileInput');
-
-    const imageSquare = document.getElementById('imageSquare');
-    const imagePreview = document.getElementById('imagePreview');
-    const imagePlaceholder = document.getElementById('imagePlaceholder');
-    const imageInput = document.getElementById('imageInput');
-    const chooseImageBtn = document.getElementById('chooseImageBtn');
-    const removeImageBtn = document.getElementById('removeImageBtn');
-
-    const imgModal = document.getElementById('imgModal');
-    const modalImg = document.getElementById('modalImg');
-    const closeModal = document.getElementById('closeModal');
-
-    // Utilitários
-    function uid(){ return 'id-' + Math.random().toString(36).slice(2,9); }
-    function escapeHtml(str){ if(!str) return ''; return String(str).replace(/[&<>"']/g, function(m){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]; }); }
-    function isValidUrl(s){
-      try{ const u = new URL(s); return u.protocol === 'http:' || u.protocol === 'https:'; }catch(e){ return false; }
-    }
-
-    // Carregar do localStorage
-    function load(){
-      try{
-        const raw = localStorage.getItem(STORAGE_KEY);
-        activities = raw ? JSON.parse(raw) : [];
-      }catch(e){
-        activities = [];
-      }
-      renderAll();
-    }
-
-    function save(){
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(activities));
-    }
-
-    // Renderização
-    function renderAll(filter = 'Todas'){
-      Object.values(lists).forEach(el => el.innerHTML = '');
-      const toShow = filter === 'Todas' ? activities : activities.filter(a => a.category === filter);
-      const grouped = { 'Mobile':[], 'Análise':[], 'JavaScript':[], 'Back-end':[] };
-      toShow.forEach(a => { if(grouped[a.category]) grouped[a.category].push(a); });
-
-      for(const cat in grouped){
-        const container = lists[cat];
-        if(grouped[cat].length === 0){
-          container.innerHTML = '<div style="color:var(--muted);font-size:13px">Nenhuma atividade</div>';
-          continue;
-        }
-        grouped[cat].forEach(item => {
-          const div = document.createElement('div');
-          div.className = 'item';
-          const left = document.createElement('div');
-          left.className = 'item-left';
-          const info = document.createElement('div');
-          info.innerHTML = `<strong>${escapeHtml(item.title)}</strong>
-            <div class="meta">${escapeHtml(item.date || '')} ${item.date ? '•' : ''} ${escapeHtml(item.desc || '')}</div>`;
-          left.appendChild(info);
-          if(item.image){
-            const img = document.createElement('img');
-            img.src = item.image;
-            img.alt = item.title;
-            img.className = 'thumb';
-            img.style.cursor = 'pointer';
-            img.addEventListener('click', ()=> openModal(item.image));
-            left.appendChild(img);
-          }
-          // link display
-          if(item.link){
-            const a = document.createElement('a');
-            a.href = item.link;
-            a.target = '_blank';
-            a.rel = 'noopener noreferrer';
-            a.className = 'link-pill';
-            a.textContent = 'Abrir link';
-            left.appendChild(a);
-          }
-          const actions = document.createElement('div');
-          actions.className = 'actions';
-          actions.innerHTML = `
-            <button class="action-btn" data-id="${item.id}" data-action="edit">Editar</button>
-            <button class="action-btn" data-id="${item.id}" data-action="delete">Excluir</button>
-          `;
-          div.appendChild(left);
-          div.appendChild(actions);
-          container.appendChild(div);
-        });
-      }
-    }
-
-    // Modal
-    function openModal(src){
-      modalImg.src = src;
-      imgModal.classList.add('open');
-      imgModal.setAttribute('aria-hidden','false');
-    }
-    closeModal.addEventListener('click', ()=> {
-      imgModal.classList.remove('open');
-      imgModal.setAttribute('aria-hidden','true');
-      modalImg.src = '';
-    });
-    imgModal.addEventListener('click', (e)=> {
-      if(e.target === imgModal) { closeModal.click(); }
-    });
-
-    // File to base64
-    function fileToBase64(file){
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = () => reject(new Error('Erro ao ler arquivo'));
-        reader.readAsDataURL(file);
-      });
-    }
-
-    // Atualizar preview quadrado
-    function setPreview(base64){
-      if(base64){
-        imagePreview.src = base64;
-        imagePreview.style.display = 'block';
-        imagePlaceholder.style.display = 'none';
+    /* --- INÍCIO DO JAVASCRIPT --- */
+    
+    // Função para abrir o link do projeto em nova guia
+    function abrirProjeto(url) {
+      if (url !== '') {
+        window.open(url, '_blank');
       } else {
-        imagePreview.src = '';
-        imagePreview.style.display = 'none';
-        imagePlaceholder.style.display = 'block';
+        alert("Link indisponível no momento.");
       }
     }
 
-    // Drag & drop handlers
-    ;['dragenter','dragover'].forEach(ev => {
-      imageSquare.addEventListener(ev, (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        imageSquare.classList.add('dragover');
+    // Função para alternar entre as categorias
+    function mostrarCategoria(idCategoria) {
+      // Pega todas as seções de categoria e remove a classe 'ativo' (esconde todas)
+      const categorias = document.querySelectorAll('.categoria-conteudo');
+      categorias.forEach(categoria => {
+        categoria.classList.remove('ativo');
       });
-    });
-    ;['dragleave','drop'].forEach(ev => {
-      imageSquare.addEventListener(ev, (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        imageSquare.classList.remove('dragover');
-      });
-    });
-    imageSquare.addEventListener('drop', async (e) => {
-      const file = e.dataTransfer.files[0];
-      if(!file) return;
-      if(!file.type.startsWith('image/')) return alert('Selecione um arquivo de imagem');
-      const maxBytes = 5 * 1024 * 1024;
-      if(file.size > maxBytes && !confirm('Imagem grande pode não salvar corretamente. Continuar?')) return;
-      const b64 = await fileToBase64(file);
-      imageInput._pendingBase64 = b64;
-      setPreview(b64);
-    });
 
-    // Clique no quadrado abre seletor
-    imageSquare.addEventListener('click', ()=> imageInput.click());
-    chooseImageBtn.addEventListener('click', ()=> imageInput.click());
-
-    // Seleção via input
-    imageInput.addEventListener('change', async (e) => {
-      const file = e.target.files[0];
-      if(!file) return;
-      if(!file.type.startsWith('image/')) return alert('Selecione um arquivo de imagem');
-      const maxBytes = 5 * 1024 * 1024;
-      if(file.size > maxBytes && !confirm('Imagem grande pode não salvar corretamente. Continuar?')) return;
-      const b64 = await fileToBase64(file);
-      imageInput._pendingBase64 = b64;
-      setPreview(b64);
-      imageInput.value = '';
-    });
-
-    // Remover imagem do formulário (não afeta itens já salvos)
-    removeImageBtn.addEventListener('click', ()=> {
-      imageInput._pendingBase64 = null;
-      setPreview(null);
-      alert('Imagem removida do formulário');
-    });
-
-    // Form submit
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const title = titleInput.value.trim();
-      const category = categoryInput.value;
-      const date = dateInput.value.trim();
-      const desc = descInput.value.trim();
-      const link = linkInput.value.trim();
-      const editingId = editingIdInput.value;
-
-      if(!title) return alert('Preencha o título.');
-      if(link && !isValidUrl(link)) {
-        if(!confirm('O link parece inválido. Deseja salvar mesmo assim?')) return;
-      }
-
-      // imagem pendente do input/drag
-      let imageData = imageInput._pendingBase64 !== undefined ? imageInput._pendingBase64 : null;
-
-      if(editingId){
-        const idx = activities.findIndex(a => a.id === editingId);
-        if(idx > -1){
-          // se não houve alteração de imagem, manter a existente
-          const keepImage = imageData !== null ? imageData : activities[idx].image || null;
-          activities[idx] = { ...activities[idx], title, category, date, desc, link: link || null, image: keepImage, updatedAt: Date.now() };
-        }
-        editingIdInput.value = '';
-      } else {
-        activities.push({
-          id: uid(),
-          title, category, date, desc,
-          link: link || null,
-          image: imageData || null,
-          createdAt: Date.now()
-        });
-      }
-      // limpar estado do formulário
-      imageInput._pendingBase64 = undefined;
-      setPreview(null);
-      form.reset();
-      save();
-      renderAll(getActiveCategory());
-    });
-
-    // Limpar formulário
-    clearBtn.addEventListener('click', ()=> {
-      form.reset();
-      editingIdInput.value = '';
-      imageInput._pendingBase64 = undefined;
-      setPreview(null);
-    });
-
-    // Delegação de ações (editar/excluir)
-    document.addEventListener('click', e => {
-      const btn = e.target.closest('.action-btn');
-      if(!btn) return;
-      const id = btn.dataset.id;
-      const action = btn.dataset.action;
-      if(action === 'edit'){
-        const item = activities.find(a => a.id === id);
-        if(!item) return;
-        titleInput.value = item.title;
-        categoryInput.value = item.category;
-        dateInput.value = item.date || '';
-        descInput.value = item.desc || '';
-        linkInput.value = item.link || '';
-        editingIdInput.value = item.id;
-        // mostrar imagem existente no quadrado, mas não sobrescrever até o usuário escolher
-        imageInput._pendingBase64 = undefined;
-        setPreview(item.image || null);
-        window.scrollTo({top:0,behavior:'smooth'});
-      } else if(action === 'delete'){
-        if(!confirm('Excluir esta atividade?')) return;
-        activities = activities.filter(a => a.id !== id);
-        save();
-        renderAll(getActiveCategory());
-      }
-    });
-
-    // Filtrar por categoria via sidebar
-    catButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        catButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const cat = btn.dataset.cat;
-        renderAll(cat);
-      });
-    });
-
-    function getActiveCategory(){
-      const active = document.querySelector('.cat-btn.active');
-      return active ? active.dataset.cat : 'Todas';
+      // Adiciona a classe 'ativo' apenas na categoria que foi clicada
+      document.getElementById(idCategoria).classList.add('ativo');
     }
 
-    // Export / Import
-    exportBtn.addEventListener('click', () => {
-      const data = JSON.stringify(activities, null, 2);
-      const blob = new Blob([data], {type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'portfolio_atividades_com_imagens_e_links.json';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    });
+    // Função para ampliar a imagem do Expo
+    function ampliarImagem(caminhoDaImagem) {
+      const modal = document.getElementById('modalImagem');
+      const imgElement = document.getElementById('imgAmpliada');
+      
+      // Coloca o caminho da imagem no src da tag <img> dentro do modal
+      imgElement.src = caminhoDaImagem;
+      
+      // Mostra o modal
+      modal.style.display = "block";
+    }
 
-    importBtn.addEventListener('click', () => fileInput.click());
-    fileInput.addEventListener('change', (e) => {
-      const f = e.target.files[0];
-      if(!f) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        try{
-          const parsed = JSON.parse(reader.result);
-          if(!Array.isArray(parsed)) throw new Error('Formato inválido');
-          const existingIds = new Set(activities.map(a=>a.id));
-          parsed.forEach(p => {
-            if(!p.id) p.id = uid();
-            if(!existingIds.has(p.id)) activities.push(p);
-          });
-          save();
-          renderAll(getActiveCategory());
-          alert('Importação concluída');
-        }catch(err){
-          alert('Arquivo inválido');
-        }
-      };
-      reader.readAsText(f);
-      fileInput.value = '';
-    });
+    // Função para fechar o modal
+    function fecharModal() {
+      document.getElementById('modalImagem').style.display = "none";
+    }
 
-    // Inicializa
-    load();
-
-    // Animação sutil
-    setTimeout(()=> {
-      const active = document.querySelector('.cat-btn.active');
-      if(active) active.animate([{transform:'translateY(0)'},{transform:'translateY(-6px)'},{transform:'translateY(0)'}],{duration:900,iterations:1});
-    },400);
+    // Fecha o modal se o usuário clicar fora da imagem
+    window.onclick = function(event) {
+      const modal = document.getElementById('modalImagem');
+      if (event.target == modal) {
+        fecharModal();
+      }
+    }
+    
+    /* --- FIM DO JAVASCRIPT --- */
   </script>
 </body>
 </html>
