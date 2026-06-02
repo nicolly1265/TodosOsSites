@@ -1,0 +1,688 @@
+html·687 linhas
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Meu Portfólio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #0a1628;
+      color: white;
+    }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      background: #0d1f3c;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 65px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.4);
+    }
+
+    .nav-logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+    .nav-logo span { color: #f5a623; }
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 2px solid transparent;
+      color: white;
+      padding: 9px 22px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+    .nav-btn:hover { border-color: #f5a623; color: #f5a623; }
+    .nav-btn.active { background: #f5a623; color: #0d1f3c; border-color: #f5a623; }
+
+    .nav-btn-outline {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 9px 22px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+    .nav-btn-outline:hover { background: white; color: #0d1f3c; }
+
+    /* ===== DROPDOWN ===== */
+    .dropdown { position: relative; }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0d1f3c;
+      border: 1px solid rgba(245,166,35,0.3);
+      border-radius: 12px;
+      min-width: 200px;
+      padding: 8px 0;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      z-index: 200;
+    }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 20px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s;
+      font-size: 0.95rem;
+    }
+    .dropdown-menu a:hover { background: rgba(245,166,35,0.15); color: #f5a623; padding-left: 28px; }
+    .dropdown-menu a::before { content: "📁 "; }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 60px 60px;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      animation: fadeIn 0.8s ease;
+    }
+    .slide.active { display: flex; align-items: center; justify-content: space-between; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0d1f3c 0%, #1a3a6b 50%, #0d2a5c 100%);
+      z-index: 0;
+    }
+
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      max-width: 55%;
+    }
+
+    .slide-tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+    }
+
+    .slide-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    .slide-title span { color: #f5a623; }
+
+    .slide-desc {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #c8d8f0;
+      margin-bottom: 30px;
+      max-width: 480px;
+    }
+
+    .slide-cta {
+      background: #f5a623;
+      color: #0d1f3c;
+      border: none;
+      padding: 13px 32px;
+      border-radius: 30px;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .slide-cta:hover { background: #ffd080; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245,166,35,0.4); }
+
+    .slide-image {
+      position: relative;
+      z-index: 2;
+      width: 300px;
+      height: 380px;
+      flex-shrink: 0;
+    }
+    .slide-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    }
+    .slide-image .img-placeholder {
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      background: linear-gradient(135deg, #1a3a6b, #2a5298);
+      border: 2px solid rgba(245,166,35,0.3);
+    }
+
+    /* Decorative shapes */
+    .hero-shape {
+      position: absolute;
+      z-index: 1;
+    }
+    .shape-1 {
+      width: 180px; height: 180px;
+      border: 2px solid rgba(245,166,35,0.3);
+      border-radius: 20px;
+      transform: rotate(30deg);
+      right: 380px; bottom: 40px;
+    }
+    .shape-2 {
+      width: 120px; height: 120px;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 50%;
+      right: 50px; top: 60px;
+    }
+
+    /* Slide indicators */
+    .slide-indicators {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+    .dot {
+      width: 10px; height: 10px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .dot.active { background: #f5a623; width: 28px; border-radius: 5px; }
+
+    .slide-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      z-index: 10;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s;
+    }
+    .slide-arrow:hover { background: #f5a623; color: #0d1f3c; }
+    .arrow-left { left: 15px; }
+    .arrow-right { right: 15px; }
+
+    /* ===== SECTION: SOBRE MIM ===== */
+    .section {
+      display: none;
+      padding: 70px 60px;
+      animation: fadeIn 0.6s ease;
+    }
+    .section.visible { display: block; }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #f5a623;
+      margin-bottom: 8px;
+    }
+    .section-divider {
+      width: 60px; height: 4px;
+      background: #f5a623;
+      border-radius: 2px;
+      margin-bottom: 30px;
+    }
+
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .sobre-photo {
+      width: 250px; height: 310px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #1a3a6b, #2a5298);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem;
+      border: 2px solid rgba(245,166,35,0.3);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+
+    .sobre-text h2 { font-size: 1.8rem; margin-bottom: 15px; }
+    .sobre-text p { color: #c8d8f0; line-height: 1.8; margin-bottom: 15px; font-size: 1rem; }
+
+    .sobre-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .tag {
+      background: rgba(245,166,35,0.15);
+      border: 1px solid rgba(245,166,35,0.4);
+      color: #f5a623;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* ===== SECTION: PORTFOLIO ===== */
+    .trimestre-tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: rgba(255,255,255,0.07);
+      border: 2px solid rgba(255,255,255,0.15);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.3s;
+    }
+    .tab-btn:hover { border-color: #f5a623; color: #f5a623; }
+    .tab-btn.active { background: #f5a623; color: #0d1f3c; border-color: #f5a623; }
+
+    .trimestre-content { display: none; animation: fadeIn 0.5s ease; }
+    .trimestre-content.active { display: block; }
+
+    .trimestre-header {
+      background: linear-gradient(135deg, #1a3a6b, #0d2a5c);
+      border-left: 5px solid #f5a623;
+      padding: 20px 25px;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 30px;
+    }
+    .trimestre-header h3 { font-size: 1.4rem; margin-bottom: 5px; }
+    .trimestre-header p { color: #c8d8f0; font-size: 0.9rem; }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #0d1f3c, #1a3060);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 25px;
+      transition: all 0.3s;
+    }
+    .card:hover { transform: translateY(-5px); border-color: rgba(245,166,35,0.4); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+
+    .card-icon { font-size: 2.5rem; margin-bottom: 14px; }
+    .card h4 { font-size: 1.1rem; margin-bottom: 10px; }
+    .card p { color: #c8d8f0; font-size: 0.88rem; line-height: 1.6; }
+
+    .card-badge {
+      display: inline-block;
+      background: rgba(245,166,35,0.15);
+      color: #f5a623;
+      border: 1px solid rgba(245,166,35,0.3);
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-top: 12px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #060f1e;
+      text-align: center;
+      padding: 25px;
+      color: #6a8ab0;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    footer span { color: #f5a623; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">Port<span>fólio</span></div>
+  <div class="nav-links">
+    <button class="nav-btn active" onclick="showHome()">🏠 Início</button>
+
+    <!-- PORTFÓLIO DROPDOWN -->
+    <div class="dropdown">
+      <button class="nav-btn" onclick="showPortfolio()">📂 Meu Portfólio ▾</button>
+      <div class="dropdown-menu">
+        <a href="#" onclick="showPortfolio(0); return false;">1º Trimestre</a>
+        <a href="#" onclick="showPortfolio(1); return false;">2º Trimestre</a>
+        <a href="#" onclick="showPortfolio(2); return false;">3º Trimestre</a>
+      </div>
+    </div>
+
+    <button class="nav-btn-outline" onclick="showSobre()">👤 Sobre Mim</button>
+  </div>
+</nav>
+
+<!-- HERO / CARROSSEL -->
+<div id="heroSection" style="position:relative;">
+  <div class="slide-bg"></div>
+  <div class="hero-shape shape-1"></div>
+  <div class="hero-shape shape-2"></div>
+
+  <!-- SLIDE 1 -->
+  <div class="hero slide active" id="slide-0">
+    <div class="slide-content">
+      <span class="slide-tag">✨ BEM-VINDO AO MEU PORTFÓLIO</span>
+      <h1 class="slide-title">Olá, eu sou<br><span>Seu Nome</span></h1>
+      <p class="slide-desc">
+        Estudante apaixonado por tecnologia e criação. Aqui você encontra meus projetos, trabalhos e evolução ao longo dos trimestres.
+      </p>
+      <button class="slide-cta" onclick="showPortfolio()">Ver meus projetos ›</button>
+    </div>
+    <div class="slide-image">
+      <div class="img-placeholder">🧑‍💻</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2 -->
+  <div class="hero slide" id="slide-1">
+    <div class="slide-content">
+      <span class="slide-tag">Um pouco sobre mim</span>
+      <h1 class="slide-title">Olá meu nome é: <br><span>Nicolly</span></h1>
+      <p class="slide-desc">
+        Sou do 3°ano do ensino medio, faço o curso de DESINVOLVIMENTO DE SISTEMA, tenho 17 anos para mais informações clicar no botão abaixo
+      </p>
+      <button class="slide-cta" onclick="showSobre()">Sobre mim ›</button>
+    </div>
+    <div class="slide-image">
+      <div class="img-placeholder"><img src="imagemminha.jpeg"></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3 -->
+  <div class="hero slide" id="slide-2">
+    <div class="slide-content">
+      <span class="slide-tag">🚀 PROJETOS E CONQUISTAS</span>
+      <h1 class="slide-title">Meus<br><span>Projetos</span></h1>
+      <p class="slide-desc">
+        Do 1º ao 3º trimestre, confira tudo que desenvolvi: trabalhos, apresentações, pesquisas e muito mais.
+      </p>
+      <button class="slide-cta" onclick="showPortfolio()">Explorar ›</button>
+    </div>
+    <div class="slide-image">
+      <div class="img-placeholder">🏆</div>
+    </div>
+  </div>
+
+  <!-- Arrows -->
+  <button class="slide-arrow arrow-left" onclick="changeSlide(-1)">‹</button>
+  <button class="slide-arrow arrow-right" onclick="changeSlide(1)">›</button>
+
+  <!-- Indicators -->
+  <div class="slide-indicators">
+    <div class="dot active" onclick="goToSlide(0)"></div>
+    <div class="dot" onclick="goToSlide(1)"></div>
+    <div class="dot" onclick="goToSlide(2)"></div>
+  </div>
+</div>
+
+<!-- SOBRE MIM SECTION -->
+<div class="section" id="sobreSection">
+  <div class="section-title">Sobre Mim</div>
+  <div class="section-divider"></div>
+  <div class="sobre-grid">
+    <div class="sobre-photo">🧑‍🎓</div>
+    <div class="sobre-text">
+      <h2>Olá! Eu sou <span style="color:#f5a623">Nicolly</span></h2>
+      <p>
+        Sou estudante do ensino médio/técnico estouu sempre disposta  aprender. Tenho interesse em tecnologia e artes. Este portfólio reúne meus trabalhos e projetos realizados ao longo do ano.
+      </p>
+      <p>
+        Acredito que a educação é a chave para transformar o futuro. Cada projeto aqui representa um desafio superado e uma nova habilidade adquirida.
+      </p>
+      <p>
+        📍 Arapongas, Paraná &nbsp;|&nbsp; 📧 nicollycarolinesantosribeiri@email.com&nbsp;|&nbsp nicolly.santos.ribeiro@escola.pr.gov.br
+      </p>
+      <div class="sobre-tags">
+        <span class="tag">🖥️ Tecnologia</span>
+        <span class="tag">📐 Matemática</span>
+        <span class="tag">🔬 Ciências</span>
+        <span class="tag">🎨 Artes</span>
+        <span class="tag">📖 Leitura</span>
+        <span class="tag">💡 Criatividade</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PORTFÓLIO SECTION -->
+<div class="section" id="portfolioSection">
+  <div class="section-title">Meu Portfólio</div>
+  <div class="section-divider"></div>
+
+  <div class="trimestre-tabs">
+    <button class="tab-btn active" onclick="showTrimestre(0, this)">📅 1º Trimestre</button>
+    <button class="tab-btn" onclick="showTrimestre(1, this)">📅 2º Trimestre</button>
+    <button class="tab-btn" onclick="showTrimestre(2, this)">📅 3º Trimestre</button>
+  </div>
+
+  <!-- 1º TRIMESTRE -->
+  <div class="trimestre-content active" id="tri-0">
+    <div class="trimestre-header">
+      <h3>1º Trimestre</h3>
+      <p>Janeiro – Abril &nbsp;|&nbsp; Início da jornada acadêmica</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">📝</div>
+        <h4>Trabalho de Português</h4>
+        <p>Redação dissertativa-argumentativa sobre tecnologia e sociedade contemporânea.</p>
+        <span class="card-badge">Língua Portuguesa</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔢</div>
+        <h4>Projeto de Matemática</h4>
+        <p>Resolução de problemas com funções e gráficos aplicados ao cotidiano.</p>
+        <span class="card-badge">Matemática</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧪</div>
+        <h4>Experimento de Ciências</h4>
+        <p>Relatório sobre experimento prático realizado em laboratório.</p>
+        <span class="card-badge">Ciências</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌍</div>
+        <h4>Pesquisa de Geografia</h4>
+        <p>Análise sobre mudanças climáticas e impactos no Brasil.</p>
+        <span class="card-badge">Geografia</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2º TRIMESTRE -->
+  <div class="trimestre-content" id="tri-1">
+    <div class="trimestre-header">
+      <h3>2º Trimestre</h3>
+      <p>Maio – Agosto &nbsp;|&nbsp; Aprofundamento dos conhecimentos</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">🎭</div>
+        <h4>Apresentação de História</h4>
+        <p>Seminário sobre a Revolução Industrial e seus impactos globais.</p>
+        <span class="card-badge">História</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎨</div>
+        <h4>Projeto de Artes</h4>
+        <p>Criação de painel artístico com técnicas mistas sobre identidade cultural.</p>
+        <span class="card-badge">Artes</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">💻</div>
+        <h4>Projeto de Informática</h4>
+        <p>Desenvolvimento de planilha automatizada para organização escolar.</p>
+        <span class="card-badge">Tecnologia</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧬</div>
+        <h4>Mapa Mental de Biologia</h4>
+        <p>Mapa conceitual sobre genética e hereditariedade.</p>
+        <span class="card-badge">Biologia</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3º TRIMESTRE -->
+  <div class="trimestre-content" id="tri-2">
+    <div class="trimestre-header">
+      <h3>3º Trimestre</h3>
+      <p>Setembro – Dezembro &nbsp;|&nbsp; Consolidação e projetos finais</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">🚀</div>
+        <h4>Projeto Final Integrado</h4>
+        <p>Projeto interdisciplinar envolvendo múltiplas disciplinas e apresentação para a banca.</p>
+        <span class="card-badge">Multidisciplinar</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <h4>Pesquisa Científica</h4>
+        <p>Trabalho de iniciação científica com metodologia e resultados documentados.</p>
+        <span class="card-badge">Pesquisa</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌐</div>
+        <h4>Este Portfólio Web</h4>
+        <p>Criação deste portfólio digital para apresentação de todos os trabalhos do ano.</p>
+        <span class="card-badge">Tecnologia</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏅</div>
+        <h4>Conquistas do Ano</h4>
+        <p>Resumo das principais conquistas, notas e habilidades desenvolvidas durante o ano letivo.</p>
+        <span class="card-badge">Destaque</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Feito com ❤️ por <span>Seu Nome</span> &nbsp;|&nbsp; Portfólio Escolar 2025
+</footer>
+
+<script>
+  // ===== NAVEGAÇÃO =====
+  function hideAll() {
+    document.getElementById('heroSection').style.display = 'none';
+    document.getElementById('sobreSection').classList.remove('visible');
+    document.getElementById('portfolioSection').classList.remove('visible');
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  }
+
+  function showHome() {
+    hideAll();
+    document.getElementById('heroSection').style.display = 'block';
+    document.querySelectorAll('.nav-btn')[0].classList.add('active');
+  }
+
+  function showSobre() {
+    hideAll();
+    document.getElementById('sobreSection').classList.add('visible');
+  }
+
+  function showPortfolio(tab = 0) {
+    hideAll();
+    document.getElementById('portfolioSection').classList.add('visible');
+    // Ativa a aba correta
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(t => t.classList.remove('active'));
+    tabs[tab].classList.add('active');
+    document.querySelectorAll('.trimestre-content').forEach(c => c.classList.remove('active'));
+    document.getElementById('tri-' + tab).classList.add('active');
+  }
+
+  function showTrimestre(idx, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.trimestre-content').forEach(c => c.classList.remove('active'));
+    document.getElementById('tri-' + idx).classList.add('active');
+  }
+
+  // ===== CARROSSEL =====
+  let currentSlide = 0;
+  const totalSlides = 3;
+  let autoTimer;
+
+  function goToSlide(n) {
+    document.getElementById('slide-' + currentSlide).classList.remove('active');
+    document.querySelectorAll('.dot')[currentSlide].classList.remove('active');
+    currentSlide = (n + totalSlides) % totalSlides;
+    document.getElementById('slide-' + currentSlide).classList.add('active');
+    document.querySelectorAll('.dot')[currentSlide].classList.add('active');
+  }
+
+  function changeSlide(dir) {
+    clearInterval(autoTimer);
+    goToSlide(currentSlide + dir);
+    startAuto();
+  }
+
+  function startAuto() {
+    autoTimer = setInterval(() => goToSlide(currentSlide + 1), 5000);
+  }
+
+  startAuto();
+</script>
+</body>
+</html>
